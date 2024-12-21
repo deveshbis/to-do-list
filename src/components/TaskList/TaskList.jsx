@@ -3,11 +3,10 @@ import { useState } from "react";
 const TaskList = () => {
     const [task, setTask] = useState('');
     const [tasks, setTasks] = useState([]); 
-    const [selectedTasks, setSelectedTasks] = useState(new Set()); 
+    const [selectedTasks, setSelectedTasks] = useState([]); 
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (task.trim() === "") return;
         setTasks([...tasks, { id: Date.now(), name: task }]); 
         setTask(''); 
     };
@@ -17,18 +16,16 @@ const TaskList = () => {
     };
 
     const handleDeleteSelected = () => {
-        setTasks(tasks.filter(task => !selectedTasks.has(task.id)));
-        setSelectedTasks(new Set()); 
+        setTasks(tasks.filter(task => !selectedTasks.includes(task.id)));
+        setSelectedTasks([]); 
     };
 
     const toggleSelectTask = (id) => {
-        const updatedSelectedTasks = new Set(selectedTasks);
-        if (updatedSelectedTasks.has(id)) {
-            updatedSelectedTasks.delete(id);
+        if (selectedTasks.includes(id)) {
+            setSelectedTasks(selectedTasks.filter(selectedId => selectedId !== id));
         } else {
-            updatedSelectedTasks.add(id);
+            setSelectedTasks([...selectedTasks, id]);
         }
-        setSelectedTasks(updatedSelectedTasks);
     };
 
     return (
@@ -58,10 +55,10 @@ const TaskList = () => {
                                     <input
                                         id="selectAll"
                                         type="checkbox"
-                                        checked={selectedTasks.size === tasks.length}
+                                        checked={selectedTasks.length === tasks.length}
                                         onChange={(e) =>
                                             setSelectedTasks(
-                                                e.target.checked ? new Set(tasks.map(task => task.id)) : new Set()
+                                                e.target.checked ? tasks.map(task => task.id) : []
                                             )
                                         }
                                         className="hidden peer"
@@ -82,7 +79,7 @@ const TaskList = () => {
                                         <input
                                             id={`checkbox-${task.id}`}
                                             type="checkbox"
-                                            checked={selectedTasks.has(task.id)}
+                                            checked={selectedTasks.includes(task.id)}
                                             onChange={() => toggleSelectTask(task.id)}
                                             className="hidden peer"
                                         />
@@ -107,9 +104,9 @@ const TaskList = () => {
                     <button
                         onClick={handleDeleteSelected}
                         className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
-                        disabled={selectedTasks.size === 0}
+                        disabled={selectedTasks.length === 0}
                     >
-                        Delete Selected
+                        Delete Selected All Task
                     </button>
                 </div>
             )}
