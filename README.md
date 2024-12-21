@@ -1,8 +1,7 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### Cloning and Running Locally
+#### To clone and run "Todo-List" locally, follow these steps:
+- **Clone the repository from GitHub:git clone** [https://github.com/deveshbis/to-do-list](https://github.com/deveshbis/to-do-list)
+- **Navigate into the project directory:** cd to-do-list-app
+- **Install dependencies:** npm install
+- **Access the application locally** via <a href="http://localhost:5173" target="_blank">http://localhost:5000</a> in your web browser.
+ 
